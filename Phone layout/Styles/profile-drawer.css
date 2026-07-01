@@ -1,0 +1,325 @@
+/* ========================================================
+   1. CORE DRAWER OVERLAY & FULL-SCREEN GLASS MASK
+   ======================================================== */
+.drawer-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Layer priority bumped cleanly above the header navigation stack to prevent clipping */
+    z-index: 100000; 
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 400ms ease;
+}
+
+.drawer-overlay[data-state="open"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Hides background header elements completely when the drawer layout is active */
+body.modal-active nav .brand-home-btn,
+body.modal-active nav .contact-trigger-btn,
+body.modal-active nav .dynamic-dropdown-btn {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 200ms ease;
+}
+
+.drawer-mask {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 12, 24, 0.4); 
+    backdrop-filter: blur(25px) saturate(130%);
+    -webkit-backdrop-filter: blur(25px) saturate(130%);
+}
+
+/* ========================================================
+   2. FLOATING CARD HOUSING (MATCHES INTERACTION MOCKUPS)
+   ======================================================== */
+.drawer-window-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px; /* Wider layout profile for balanced technical content mapping */
+    height: calc(100vh - 3rem); /* Leaves a clean architectural floating gap top and bottom */
+    margin-left: 1.5rem; /* Offsets container to float cleanly off the left monitor frame */
+    
+    /* Premium frosted glassmorphic panel curves matching reference frames */
+    border-radius: 2rem; 
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    box-shadow: 40px 0 80px rgba(0, 0, 0, 0.5);
+    
+    padding: 2.5rem;
+    z-index: 100002;
+    transform: translateX(-110%);
+    transition: transform 500ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.drawer-overlay[data-state="open"] .drawer-window-container {
+    transform: translateX(0);
+}
+
+.drawer-body-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto; /* Gracefully handles scrolling content layers on small laptop viewports */
+    padding-right: 0.25rem;
+}
+
+/* Custom minimal geometric scrollbar tracking rules */
+.drawer-body-layout::-webkit-scrollbar { width: 4px; }
+.drawer-body-layout::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 2px; }
+
+/* ========================================================
+   3. PROFILE IMAGE GEOMETRY & BOUNDING CROPS
+   ======================================================== */
+.profile-image-frame {
+    width: 100%;
+    height: 380px; /* Height scaling matches reference ratio card proportions */
+    border-radius: 1.5rem;
+    background-size: cover;
+    background-position: center 15%; /* Custom framing anchor to center headshot cleanly */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 15px 35px rgba(0,0,0,0.3);
+    margin-bottom: 2rem;
+}
+
+/* ========================================================
+   4. DRAWER CONTENT TYPOGRAPHY LAYOUTS
+   ======================================================== */
+.profile-meta-display h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.profile-subtitle-tag {
+    display: inline-block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent) !important; /* Auto-pulls dynamic theme highlight configuration colors */
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+    transition: color var(--t);
+}
+
+.profile-institution {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.2rem;
+}
+
+.profile-summary-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: system-ui, -apple-system, sans-serif;
+    margin-top: 0.5rem;
+}
+
+.profile-divider {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 1.8rem 0;
+}
+
+/* ========================================================
+   5. INTERACTION LINKS ACTION ROW SWEEP STACK
+   ======================================================== */
+/* --- CIRCULAR CLOSE BUTTON FOR DRAWER (iOS Voice Settings style) --- */
+.drawer-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    cursor: pointer;
+    z-index: 100010;
+    transition: background var(--t) ease, transform var(--t) ease, border-color var(--t) ease;
+}
+.drawer-close-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+.drawer-close-btn:active {
+    transform: scale(0.95);
+}
+
+.profile-links-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.profile-action-row {
+    position: relative;
+    width: 100%;
+    height: 52px;
+    padding: 0 1.75rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 50px; /* Rounded pill style */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    overflow: hidden;
+    transition: border-color var(--t) ease, transform var(--t) ease;
+}
+
+/* Left-to-right solid color fill animation mechanics layout engine */
+.profile-action-row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent);
+    border-radius: inherit; /* Ensure round sweep */
+    z-index: 1;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 350ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.profile-action-row:hover {
+    border-color: var(--accent);
+    transform: translateX(4px); /* Micro right-shift on horizontal hover tracking */
+}
+
+.profile-action-row:hover::before {
+    transform: scaleX(1);
+}
+
+.profile-action-row .link-label,
+.profile-action-row i {
+    position: relative;
+    z-index: 2;
+    color: #ffffff !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 250ms ease;
+}
+
+.profile-action-row i {
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+/* Instantly shifts typography contrast layer elements to pitch black over active fill overlays */
+.profile-action-row:hover .link-label,
+.profile-action-row:hover i {
+    color: #000000 !important;
+    opacity: 1;
+}
+
+/* ========================================================
+   6. PINNED DRAWER FOOTER REPOSITION ZONE CONTROLS
+   ======================================================== */
+.drawer-footer-controls {
+    margin-top: auto; /* Pushes the close button to the absolute bottom of the frame layout */
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 2rem;
+}
+
+.drawer-back-btn {
+    width: 100%; /* Spans full frame width for balanced aesthetic geometry lines */
+}
+/* ========================================================
+   PHONE LAYOUT DRAWER FIXES
+   ======================================================== */
+.drawer-window-container {
+    transform: translateY(-110%) !important; /* Drop down from top */
+    margin: 2.5rem auto 0 auto !important; /* Move higher up the screen */
+    max-width: 90% !important; 
+    height: auto !important;
+    max-height: 88vh !important;
+    padding: 1.5rem !important; /* Slightly less padding for mobile */
+}
+.drawer-overlay[data-state="open"] .drawer-window-container {
+    transform: translateY(0) !important;
+}
+.profile-image-frame {
+    height: 300px !important; /* Slightly shorter for mobile */
+    margin-bottom: 1.5rem !important;
+}
+
+/* ========================================================
+   PHONE LAYOUT COMPACT DRAWER FIXES (TEXT SIZING & HEIGHT)
+   ======================================================== */
+.drawer-window-container {
+    margin: 1rem auto 0 auto !important; /* Move it almost all the way to the top */
+    max-height: 98vh !important; /* Let it stretch further down the screen */
+    padding: 1.25rem !important; /* Reduce padding slightly to save space */
+}
+
+/* Shrink image to save massive vertical space */
+.profile-image-frame {
+    height: 240px !important; 
+    margin-bottom: 1rem !important;
+}
+
+/* Shrink all typography to fit phone screens better */
+.profile-meta-display h2 {
+    font-size: 1.8rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.profile-subtitle-tag {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.profile-institution {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.profile-summary-text {
+    font-size: 0.75rem !important;
+    line-height: 1.4 !important;
+    margin-top: 0.25rem !important;
+}
+
+/* Move the close button slightly up and right so it doesn't hit the name */
+.drawer-close-btn {
+    top: -5px !important;
+    right: 0 !important;
+    width: 32px !important; /* make button slightly smaller */
+    height: 32px !important;
+}
+
+/* Shrink action row buttons (LinkedIn/Resume) */
+.profile-action-row {
+    height: 44px !important;
+    padding: 0 1.25rem !important;
+}
+.profile-action-row .link-label {
+    font-size: 0.75rem !important;
+}
+.drawer-footer-controls {
+    padding-top: 1rem !important;
+}

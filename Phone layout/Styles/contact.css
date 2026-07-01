@@ -1,0 +1,179 @@
+/* --- CONTACT MODAL OVERLAY STYLING SYSTEM --- */
+main {
+    transition: transform 500ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+body.modal-active main {
+    transform: scale(0.96);
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000; /* Force it way above the main navigation or slider timeline layer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 400ms ease;
+}
+.modal-overlay[data-state="open"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-mask {
+    position: absolute;
+    inset: 0;
+    background: rgba(236, 238, 244, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.modal-window-container {
+    position: relative;
+    width: 90%;
+    max-width: 820px;
+    background: var(--card-bg);
+    box-shadow: var(--neumorphic-outer);
+    border-radius: 2rem;
+    overflow: hidden;
+    z-index: 1002;
+    transform: translateY(40px) scale(0.95);
+    transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.modal-overlay[data-state="open"] .modal-window-container {
+    transform: translateY(0px) scale(1);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: background var(--t) ease, transform var(--t) ease, border-color var(--t) ease;
+}
+.modal-close-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+.modal-close-btn:active {
+    transform: scale(0.95);
+}
+
+.modal-split-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; }
+.modal-form-side, .modal-info-side { padding: 3.5rem; }
+.modal-info-side {
+    /* Subtle transparent divider instead of a harsh line */
+    border-left: 1px solid rgba(0, 0, 0, 1); 
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.modal-split-layout h3 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: var(--text-main);
+}
+
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+.form-group label { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+.form-group input, .form-group textarea {
+    background: rgba(0, 0, 0, 0.05); 
+    border: 1px solid rgba(255, 255, 255, 0.12); 
+    outline: none; 
+    border-radius: 1.5rem; /* Round inputs */
+    padding: 0.9rem 1.4rem;
+    color: #000000 !important; 
+    font-size: 0.95rem;
+    transition: border-color var(--t) ease, background var(--t) ease, box-shadow var(--t) ease;
+}
+
+/* Dynamic glow effect when the user clicks inside a box to type */
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+}
+
+.form-submit-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 1rem 2.75rem;
+    border-radius: 50px; /* Pill submit button */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: all var(--t);
+}
+.form-submit-btn:hover {
+    background: var(--accent-hover);
+    opacity: 0.9;
+    transform: scale(0.98);
+}
+
+.info-block { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 2rem; }
+.info-label { font-size: 0.85rem; color: var(--text-muted); }
+.info-value-link { color: var(--text-main); font-size: 1rem; text-decoration: none; }
+.info-value-link:hover { color: var(--accent); }
+
+.social-icon-btn {
+    background: #0077b5;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Circle shape matching Personality items */
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+/* --- FIXED CONTACT HEADER TRIGGER BUTTON --- */
+.contact-trigger-btn {
+    display: inline-block;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--neumorphic-outer);
+    background: var(--card-bg);
+    white-space: nowrap;
+    transition: all var(--t) ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.contact-trigger-btn:hover {
+    color: var(--accent);
+    box-shadow: var(--neumorphic-inner);
+    transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+    .modal-split-layout { grid-template-columns: 1fr; }
+    .modal-info-side { border-left: none; border-top: 1px solid rgba(0, 0, 0, 0.05); padding: 2.5rem 3.5rem; }
+    .modal-form-side { padding-bottom: 1.5rem; }
+}

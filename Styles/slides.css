@@ -1,0 +1,490 @@
+/* ========================================================
+   TIMELINE STAGE & HIGH-CONTRAST METALLIC GRADIENTS
+   ======================================================== */
+#timeline-stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 90px;
+    transition: background 1000ms ease;
+    overflow: hidden;
+}
+
+/* RECOMMENDED DYNAMIC CHROMATIC THEMES: 
+   Fades from deep vivid hues down to a muted, low-saturation metallic steel base (#94a3b8)
+   This prevents white-out while keeping the bright, dynamic corner accent.
+*/
+#timeline-stage.theme-home {
+    background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #94a3b8 100%);
+}
+#timeline-stage.theme-trajan {
+    background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 45%, #94a3b8 100%);
+}
+#timeline-stage.theme-boeing {
+    background: linear-gradient(135deg, #030712 0%, #1e3a8a 45%, #94a3b8 100%);
+}
+#timeline-stage.theme-uni {
+    background: linear-gradient(135deg, #7f1d1d 0%, #dc2626 40%, #a8a29e 100%);
+}
+#timeline-stage.theme-personal {
+    background: linear-gradient(135deg, #1e1b4b 0%, #581c87 45%, #94a3b8 100%);
+}
+
+/* ========================================================
+   GLOBAL BACKDROP BLUR LINKED TO NAVIGATION MENUS
+   ======================================================== */
+/* If your layout elements are getting lost when the menu opens, 
+   we overlay a full-viewport frosted glass layer directly under the menu 
+   but completely over the top of the timeline cards.
+*/
+#timeline-stage::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 5; /* Sits completely over the articles, but beneath your active navigation drawer */
+    backdrop-filter: blur(0px) saturate(100%);
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
+    background-color: rgba(15, 23, 42, 0);
+    pointer-events: none;
+    transition: backdrop-filter 400ms ease, background-color 400ms ease;
+}
+
+/* Triggers full-screen frosting when EITHER contact modal or navigation menu is active.
+   NOTE: Ensure your JavaScript adds 'modal-active' or 'menu-active' to the <body> tag.
+*/
+body.modal-active #timeline-stage::before,
+body.menu-active #timeline-stage::before {
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    background-color: rgba(15, 23, 42, 0.35); /* Dark ambient tint to increase card contrast */
+    pointer-events: auto; /* Absorbs clicks outside the menu to close it if desired */
+}
+
+
+/* ========================================================
+   THE TIMELINE MAIN STAGE GRID SYSTEM & CONTAINER PANELS
+   ======================================================== */
+article {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr; 
+    position: absolute;
+    inset: 100px 2.5rem 2.5rem 2.5rem; 
+    gap: 2.5rem;
+    transition: transform 600ms cubic-bezier(0.25, 1, 0.5, 1), opacity 600ms ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Premium Transparent Glassmorphic Cards */
+.article-section {
+    border-radius: 2rem;
+    padding: 3rem;
+    
+    /* REFACTORED: Completely transparent slate stripped, replaced with clear frost */
+    background-color: rgba(255, 255, 255, 0.03); 
+    
+    /* Clean glowing micro boundary lines */
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    
+    /* Premium hardware shadow layers to pull the transparent frames out from background mesh */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    /* Medium frosting level to maintain high-contrast text layout separation */
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+}
+
+/* Ensure link text elements don't drop down to defaults */
+.slide-project-link, .timeline-indicator-tag, .click-more-tag {
+    color: var(--text-main) !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Explicit Grid Mapping Hooks */
+.article-description-section { grid-area: 1 / 2 / 2 / 3; }
+.article-title-section { grid-area: 2 / 2 / 3 / 3; }
+
+/* Proportional overlapping layout for ALL slide images */
+.article-image-section {
+    grid-area: 1 / 1 / 3 / 2; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; /* Centers the whole collage vertically */
+    padding: 0;
+    background: transparent !important; 
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.photo-item {
+    flex: none; /* Prevent stretching in the flex column */
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+    transform: perspective(50rem) rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
+}
+
+.photo-item:nth-child(1) {
+    width: 52%;
+    aspect-ratio: 4 / 5;
+    align-self: flex-start;
+    z-index: 1;
+}
+
+.photo-item:nth-child(2) {
+    width: 48%;
+    aspect-ratio: 2 / 3;
+    align-self: flex-end;
+    margin-right: 5%;
+    margin-top: -50%; /* Scales relative to container width */
+    z-index: 2;
+}
+
+.photo-item:nth-child(3) {
+    width: 65%;
+    aspect-ratio: 3 / 2;
+    align-self: flex-start;
+    margin-left: 5%;
+    margin-top: -30%; /* Scales relative to container width */
+    z-index: 3;
+}
+
+/* Explicitly binds the right-hand description card to the top right sector */
+.article-description-section { 
+    grid-area: 1 / 2 / 2 / 3; 
+}
+
+/* Explicitly binds the right-hand title card to the bottom right sector */
+.article-title-section { 
+    grid-area: 2 / 2 / 3 / 3; 
+}
+
+/* ========================================================
+   CAROUSEL VELOCITY ANIMATION SYSTEM STATES
+   ======================================================== */
+article.active {
+    transform: translateX(0%);
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+article.before {
+    transform: translateX(-100%);
+    opacity: 0;
+    z-index: 1;
+}
+
+article.after {
+    transform: translateX(100%);
+    opacity: 0;
+    z-index: 1;
+}
+
+article.becoming-active-from-before {
+    transform: translateX(-100%);
+    transition: none !important;
+}
+
+article.becoming-active-from-after {
+    transform: translateX(100%);
+    transition: none !important;
+}
+
+/* --- HIGH-END NEUMORPHIC PHOTO LAYER SHADING EFFECT --- */
+.photo-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    /* Injects a crisp inner bezel shadow over the face of your loaded photos */
+    box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.15), 
+                inset -4px -4px 8px rgba(255, 255, 255, 0.2);
+    pointer-events: none; /* Allows user to interact with links safely */
+    transition: background-color var(--t);
+}
+
+/* Smooth lens tint overlay effect when hovering over project images */
+.photo-item:hover::after {
+    background-color: rgba(37, 99, 235, 0.03); /* Extremely soft ambient accent glow */
+}
+
+/* ========================================================
+   HOME SLIDE (SLIDE 0) CUSTOM GRID & COMPONENT STYLING
+   ======================================================== */
+
+/* Note: The overlapping image layout is now applied globally to all slides above. */
+
+.home-top-container {
+    grid-area: 1 / 2 / 2 / 3;
+    display: flex;
+    gap: 2.5rem;
+}
+
+.home-title-box, .home-skills-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Make skills grid single column so it fits cleanly in the narrow split box */
+.home-skills-box .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.home-bottom-section {
+    grid-area: 2 / 2 / 3 / 3;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- TECHNICAL EXPERTISE SKILLS LIST --- */
+.skills-title {
+    font-size: 1rem; /* Smaller to fit narrower column */
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.75rem;
+}
+
+/* ========================================================
+   SVG ARROW CTA BUTTON
+   ======================================================== */
+.svg-arrow-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 30px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    margin-top: 1.5rem;
+    width: fit-content;
+}
+
+.svg-arrow-btn:hover {
+    box-shadow: 0 10px 25px var(--accent);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.svg-arrow-btn > span {
+    /* Skew removed for cleaner rounded glass look */
+}
+
+.svg-arrow-btn > span:nth-child(2) {
+    width: 35px;
+    margin-left: 20px;
+    position: relative;
+    transition: 0.5s;
+    margin-right: 0px;
+}
+
+.svg-arrow-btn:hover > span:nth-child(2) {
+    margin-right: 20px;
+}
+
+.svg-arrow-btn svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.svg-arrow-btn path.one {
+    transition: 0.4s;
+    transform: translateX(-60%);
+}
+
+.svg-arrow-btn path.two {
+    transition: 0.5s;
+    transform: translateX(-30%);
+}
+
+.svg-arrow-btn:hover path.three {
+    animation: color_anim 1s infinite 0.2s;
+}
+
+.svg-arrow-btn:hover path.one {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.6s;
+}
+
+.svg-arrow-btn:hover path.two {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.4s;
+}
+
+@keyframes color_anim {
+    0% { fill: white; }
+    50% { fill: var(--accent); }
+}
+
+/* ========================================================
+   SUMMARY SUBHEADINGS (Action / Result)
+   ======================================================== */
+.summary-subheading {
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.summary-subheading i {
+    margin-right: 0.4rem;
+    font-size: 1rem;
+}
+
+.home-summary-content p {
+    margin-bottom: 0.5rem;
+}
+
+.skills-category ul.no-title-ul {
+    margin-top: 0;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.skills-category h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.skills-category ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin: 0;
+}
+
+.skills-category li {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* --- TITLE COMPONENT --- */
+.home-title-box h2,
+.home-title-header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0.7));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.home-tagline {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* --- DESCRIPTION COMPONENT --- */
+.home-summary-content p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* --- NAVIGATION CONTROL COMPONENT --- */
+/* --- NAVIGATION CONTROL COMPONENT DELETED --- */
+
+
+/* ========================================================
+   RESPONSIVE DESIGN (Mobile & Tablet)
+   ======================================================== */
+@media (max-width: 1024px) {
+    #timeline-stage {
+        overflow-y: hidden; /* We'll let the article scroll itself */
+        overflow-x: hidden;
+    }
+    
+    article {
+        display: flex !important;
+        flex-direction: column !important;
+        inset: 0 !important;
+        padding: 5rem 1.5rem 8rem 1.5rem !important; /* Pad bottom for nav buttons */
+        gap: 1.5rem !important;
+        overflow-y: auto !important; /* Allow internal scrolling on mobile */
+        overflow-x: hidden !important;
+        height: 100dvh !important; /* Fill screen height exactly */
+        /* Absolute positioning is maintained so slide transitions work seamlessly */
+    }
+    
+    .article-section {
+        padding: 1.5rem !important;
+        border-radius: 1.5rem !important;
+    }
+
+    .home-top-container {
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr !important; /* Single column */
+    }
+
+    .article-image-section {
+        min-height: 280px !important; 
+        margin-bottom: 1rem !important;
+    }
+    
+    .photo-item:nth-child(1) { width: 75% !important; }
+    .photo-item:nth-child(2) { width: 65% !important; margin-top: -30% !important; margin-right: 0 !important; }
+    .photo-item:nth-child(3) { width: 85% !important; margin-top: -20% !important; margin-left: 5% !important; }
+    
+    .home-title-box h2, .home-title-header h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .home-summary-content p {
+        font-size: 1rem !important;
+    }
+    
+    .skills-category li {
+        font-size: 0.95rem !important;
+    }
+}

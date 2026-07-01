@@ -1,0 +1,198 @@
+{
+    "0-Home-Slide.html": {
+        "title": "Engineering Projects Timeline",
+        "tagline": "Mechatronics & Robotics Projects",
+        "summary": "Third-year Mechatronics & Robotics engineering undergraduate at Swinburne University and Propel Scholarship recipient this portfolio will be combining my academic projects with extensive industry placement projects]. These Projects show my abilities to specialize in production automation, dynamic embedded control loops, and highly integrated mechanical systems developed across aerospace and precision medical manufacturing environments.",
+        "skills": {
+            "Core Skills": [
+                "Embedded Control",
+                "Industrial Automation",
+                "Robotic Systems Design",
+                "Parametric CAD Modeling",
+                "Additive Manufacturing",
+                "Embedded Systems Firmware",
+                "Industrial Automation Integration",
+                "Aerospace Safety Governance",
+                "R&D Project Scoping",
+                "Technical Compliance Writing",
+                "Electromechanical Troubleshooting",
+                "Cross-Functional Communication"
+            ]
+        }
+    },
+    "1-TRA-MK1-Slide.html": {
+        "title": "Trajan Scitenfic & Medical: Syringe Tester Mk1",
+        "tagline": "Prototyping & R&D",
+        "summary": "Trajan Scientific and Medical required a method to validate the long-term durability and cycle endurance of chromatography syringes. Tasked with developing a functional tester from an outdated, unused chromatography  machine, the project involved reverse-engineering a chromatography machine to fully understand its core drive mechanisms. Action: The system was stripped down and simplified to its foundational components. Utilizing aluminum extrusions, salvaged parts, and custom 3D-printed mounts, a specialized test jig bench was engineered. A Raspberry Pi was integrated and programmed using Python to manage control logic, interface with limit switches for programmable cycle counts, and automated data recording. Result: The fully assembled prototype successfully performed automated syringe cycling, capturing critical failure data while proving the need for a future production ready unit.",
+        "skills": {
+            "Core Skills": [
+                "Embedded Control",
+                "Industrial Automation",
+                "Embedded Systems Firmware",
+                "Additive Manufacturing",
+                "R&D Project Scoping",
+                "Electromechanical Troubleshooting",
+                "Industrial Automation Integration",
+                "Reverse Engineering",
+                "Rapid Prototyping",
+                "Data Acquisition (DAQ)"
+            ]
+        }
+    },
+    "10-Per-FPV-Waypoint-Slide.html": {
+        "title": "Personal Project: Autonomous FPV Drone",
+        "tagline": "Autonomous Navigation & Telemetry",
+        "summary": "Standard FPV-to-Autonomous conversions often struggle with signal interference, power-line noise, and the lack of a standardized interface for autonomous navigational hardware, leading to degraded sensor accuracy and unpredictable mission-critical flight behavior. Action: As a personal project I've decided to  develop a modular, field-deployable UAV telemetry and navigation platform. I engineered a vibration-isolated sensor housing using SolidWorks, incorporating dedicated dampening geometries to protect the M10 GPS and magnetometer from high-frequency airframe harmonics. To address signal reliability, I developed a dual-band communication architecture, isolating the manual 2.4GHz ELRS control link from the 915MHz MAVLink telemetry stream to prevent cross-channel interference. I further prototyped a custom power distribution circuit that provides filtered, independent voltage rails for the navigation payload, mitigating electromagnetic interference (EMI) risks to the main flight controller. Result: The platform achieved reliable autonomous waypoint navigation and real-time telemetry streaming over a 915MHz link. The modular design enabled field-swappable sensor payloads, while the isolation of the navigation electronics resulted in a 40% reduction in sensor drift and noise floor, directly contributing to more precise path-following algorithms in autonomous AUTO flight mode.",
+        "skills": {
+            "Core Skills": [
+                "Autonomous Navigation Systems (ArduPilot/MAVLink)",
+                "Embedded Firmware Integration (Betaflight/INAV/ArduCopter)",
+                "Mechanical Design for Vibration Isolation",
+                "Electronic Power Distribution & Regulation",
+                "Telemetry Data Stream Analysis (Python/PyMAVLink)",
+                "PCB & System-Level EMI Mitigation",
+                "3D Additive Manufacturing",
+                "Sensor Calibration & State Estimation",
+                "Real-Time Embedded Troubleshooting",
+                "Technical Documentation & Project Management"
+            ]
+        }
+    },
+    "2-TRA-MK2-Slide.html": {
+        "title": "Trajan Scitenfic & Medical: Syringe Tester Mk2",
+        "tagline": "Iterative Design & Testing",
+        "summary": "Following the successful validation of the Mk1 proof-of-concept, I was tasked with developing the Mk2 prototype to bridge the gap between initial testing and a production-ready unit. The primary objective was to design a semi-portable, enclosed system capable of failure-analysis research while strictly minimizing manufacturing costs. Action: I engineered a complete CAD model of the unit utilizing cost-effective aluminum extrusions and repurposed acrylic sheets shaped via laser cutting. To maintain a low budget, I 3D-printed custom mechanical components including hinges, handles, and LED mounts. Additionally, I modified the mounting framework to accommodate a new stepper motor and integrated a standalone electrical cabinet using salvaged components to evaluate system portability and component longevity.Result: The Mk2 prototype successfully served as an active R&D research platform, providing critical mechanical wear data that identified component failure points and informed the final production design.",
+        "skills": {
+            "Core Skills": [
+                "Parametric CAD Modeling",
+                "Rapid Prototyping",
+                "Additive Manufacturing",
+                "Electromechanical Troubleshooting",
+                "Design for Excellence (DFX)"
+            ]
+        }
+    },
+    "3-TRA-MK3-Slide.html": {
+        "title": "Trajan Scitenfic & Medical: Syringe Tester Mk3",
+        "tagline": "Production Scaling & DFM",
+        "summary": "Upon receiving management approval, I was given a strict budget and timeline to scale the refined design into a final production run of 11 operational units: 5 standalone portable testers and a 6-unit integrated test bench network. Action: Serving as the project lead, I managed the entire lifecycle from generating the comprehensive Bill of Materials (BOM) to completing the full mechanical and electrical cabinet CAD designs. I selected and integrated a 10-inch touchscreen interface to eliminate external peripherals, iterated on the enclosure for noise reduction, and collaborated closely with senior engineers and electricians to bridge technical gaps in industrial compliance. Result: I successfully delivered all 11 production units (5 individual, 6 bench-mounted), resulting in a compact, quiet, and highly maintainable fleet that standardized syringe durability testing across the facility.",
+        "skills": {
+            "Core Skills": [
+                "Industrial Automation Integration",
+                "Robotic Systems Design",
+                "Cross-Functional Communication",
+                "R&D Project Scoping",
+                "Design for Manufacturability (DFM)",
+                "Bill of Materials (BOM) Management",
+                "Production Scaling & Deployment"
+            ]
+        }
+    },
+    "4-TRA-Lapping4-Slide.html": {
+        "title": "Trajan Scitenfic & Medical: Lapping 4",
+        "tagline": "Manufacturing Standardization",
+        "summary": "During the final production stages of the Lapping 4 machine framework, I was tasked with implementing design enhancements to improve usability, prevent fluid leaks, and standardize components with the newer Lapping 5 model. Action: I designed newly modified upper and lower machine doors to ensure geometric cross-compatibility across both machine generations. To resolve operational fluid containment issues, I engineered improved, leak-proof drip trays. I managed procurement by generating a comprehensive Bill of Materials (BOM) for the pneumatic systems and structural aluminum lighting fixtures, integrated aesthetic protective covers, and worked alongside production technicians to install modules and prep the machine indexer for final assembly. Result: My enhancements significantly improved the machine's aesthetics and operational containment, while part standardization streamlined the assembly pipeline and ensured consistency across the manufacturing floor. ",
+        "skills": {
+            "Core Skills": [
+                "Parametric CAD Modeling",
+                "Design for Manufacturability (DFM)",
+                "Bill of Materials (BOM) Management",
+                "Cross-Functional Communication",
+                "Pneumatic System Integration",
+                "Component Standardization",
+                "Mechanical Assembly & Alignment"
+            ]
+        }
+    },
+    "5-TRA-Lapping5-Slide.html": {
+        "title": "Trajan Scitenfic & Medical: Lapping 5",
+        "tagline": "Electromechanical Integration",
+        "summary": "The Lapping 5 production-grade manufacturing machine required full mechanical assembly, field wiring, and critical engineering optimizations to meet a strict shipment schedule. Working under the guidance of senior engineers and electricians, I was tasked with executing the electromechanical build while identifying and correcting high-risk failure points in the system's indexing mechanism. Action: I routed and structured all field cables and pneumatic airlines across six complex modules, interpreting electrical schematics to organize and label infrastructure for rapid troubleshooting. Addressing high-impact mechanical issues, I researched and redesigned the machine indexer using aerospace-grade aluminum to eliminate thermal warping and prevent system crashes. Furthermore, I resolved critical fluid leaks, fabricated custom protective covers, integrated a 3D-printed reject tray, performed CAD updates for the indexer motor assembly, and directly programmed the chipping robot while optimizing the line's automated vision inspection camera system. Result: The Lapping 5 machine was successfully commissioned and delivered on schedule, significantly reducing mechanical failure rates and sharpening my expertise in full-scale machine production, testing, and industrial integration.",
+        "skills": {
+            "Core Skills": [
+                "Industrial Automation Integration",
+                "Embedded Control",
+                "Robotic Systems Design",
+                "Electromechanical Troubleshooting",
+                "Pneumatic System Integration",
+                "Computer Vision & Inspection Systems",
+                "Electrical Schematic Interpretation",
+                "Advanced Material Selection (Aerospace Alloys)",
+                "Additive Manufacturing",
+                "Cross-Functional Communication"
+            ]
+        }
+    },
+    "6-TRA-Universal-Frames-Slide.html": {
+        "title": "Trajan Scitenfic & Medical: Universal Loading/Unloading Frames",
+        "tagline": "Robotics & Motion Control",
+        "summary": "The existing robotic loading and unloading frames required a comprehensive structural and functional overhaul to reduce system complexity, lower costs, and introduce true modular adaptability for varying factory floor layouts. I was tasked with leading the electromechanical optimization, improving the glass barrel dispensing sub-system, and refining the underlying robotic motion control scripts. Action: I performed a thorough design audit to strip out redundant components, generated an optimized Bill of Materials (BOM) for the electrical and pneumatic infrastructure, and integrated dedicated cable management and illumination fixtures. For the glass barrel dispenser, I engineered a new hopper adjustment mechanism, a low-friction Teflon gate, and a high-precision blade alignment system. On the software side, I developed and refined the system's Python control code\u2014implementing advanced homing routines, safety protocols, adaptive unloading algorithms, and synchronized waiting functions to optimize robot duty cycles. Additionally, I managed the end-to-end procurement pipeline and supplier tracking for all large-scale components. Result: The newly modularized frames significantly cut down future engineering redesign cycles, directly boosted robotic motion efficiency, and drastically improved the reliability and throughput of the dispensing mechanism.",
+        "skills": {
+            "Core Skills": [
+                "Robotic Systems Design",
+                "Embedded Control",
+                "Industrial Automation Integration",
+                "Design for Manufacturability (DFM)",
+                "Bill of Materials (BOM) Management",
+                "Pneumatic System Integration",
+                "Precision Mechanism Design",
+                "Software Optimization (Python)",
+                "Supply Chain & Procurement Management",
+                "Cross-Functional Communication"
+            ]
+        }
+    },
+    "7-TRA-Random-Jobs-Slide.html": {
+        "title": "Trajan Scitenfic & Medical: Cross-Functional Engineering Contributions",
+        "tagline": "Operations & Engineering Support",
+        "summary": "In addition to executing core project milestones, I was tasked with managing rapid prototyping infrastructure, supporting multi-disciplinary engineering teams, and driving operational efficiency across Trajan\u2019s research and manufacturing departments. Action: I was apart of  the deployment, calibration, and optimization of the department's upgraded Bambu 3D printer fleet to enhance in-house rapid prototyping capabilities. To foster a highly collaborative R&D environment, I partnered with fellow interns to peer-review cross-examine mechanical designs, providing unique engineering perspectives that solved complex design issues. I conducted rigorous data collection and statistical analysis on production machinery to validate product accuracy, shadowed senior engineers on high-level industrial projects, and fabricated custom mechanical components Furthermore, I collaborated directly with the in-house machine shop to learn practical machining constraints, and managed external vendor relations coordinating with suppliers and sales teams to analyze component pricing, audit procurement lead times, and eliminate supply-chain bottlenecks before they could delay active projects. Result: My proactive support minimized project downtime and accelerated the R&D prototyping.",
+        "skills": {
+            "Core Skills": [
+                "Cross-Functional Communication",
+                "Rapid Prototyping Infrastructure",
+                "Supply Chain & Procurement Management",
+                "Data Acquisition & Statistical Analysis",
+                "Design for Manufacturability (DFM)",
+                "Additive Manufacturing Fleet Management",
+                "Collaborative Code & Design Review",
+                "Vendor & Stakeholder Relations"
+            ]
+        }
+    },
+    "8-BOE-Boeing-Placement-Slide.html": {
+        "title": "Boeing Aerostructures Australia: Summer Internship",
+        "tagline": "Aerospace Manufacturing R&D",
+        "summary": "Appointed to the Advanced Manufacturing R&D and Collaborative Robotics (Cobots) team at Boeing Aerostructures, I was tasked with supporting high-level aerospace manufacturing initiatives and driving my own dedicated research project focused on validating next-generation manufacturing technologies. Action: I collaborated closely with multidisciplinary senior engineers to design and execute rigorous testing procedures, set up physical experiments, and develop high-precision CAD models in Catia V5  for aerospace tooling and robotic integration. I was assigned an independent project investigating future manufacturing technologies. I took full ownership of this initiative, engineering the testing parameters, executing the experimental phases, and performing comprehensive data collection to analyze the technology's viability. Concluding my placement, I took  these complex findings into a technical presentation and delivered it directly to the entire Boeing Aerostructures engineering division. Result: My research successfully delivered validated, high-integrity data that informed Boeing\u2019s future advanced manufacturing roadmap, while demonstrating my ability to independently work on projects and communicate technical insights to large-scale aerospace engineering teams.",
+        "skills": {
+            "Core Skills": [
+                "Robotic Systems Design (Cobots)",
+                "Parametric CAD Modeling",
+                "R&D Project Scoping",
+                "Data Acquisition (DAQ) & Analysis",
+                "Aerospace Safety & Quality Governance",
+                "Experimental Design & Testing",
+                "Technical Presentation & Communication",
+                "Cross-Functional Communication"
+            ]
+        }
+    },
+    "9-Uni-Payload-Slide.html": {
+        "title": "Swinburne University of Technology: SMTP",
+        "tagline": "Aerospace System Integration",
+        "summary": "Commercial unmanned aerial vehicle (UAV) telemetry payloads face high capital costs, severe vendor lock-in, and a distinct lack of hardware modularity. Additionally, typical payloads introduce aerodynamic inefficiencies or draw heavily from main flight batteries, causing critical voltage instability and restricted flight times. As part of a university unit I was a part of a  team developing an open-source, edge-AI wildfire tracking drone platform, I was tasked with leading the complete structural design of a universal, lightweight payload and an independent stable power system to ensure zero electrical dependency on the host drone. Action: I engineered a compact, modular multi-tier vertical compute stack using SolidWorks to house a Raspberry Pi 5 and an ESP32 microcontroller, ensuring isolation to protect sensitive temperature and humidity sensors from heat-generating processors. Addressing high-vibration and operational load risks, I conducted finite element analysis (FEA) stress testing within SolidWorks to optimize structural joinery For the power subsystem, I engineered and prototyped an isolated, dedicated power distribution network utilizing high-efficiency buck converters. This system safely delivered independent, regulated lines to the compute stack, servos, and sensors without pulling from the main UAV battery. Result: The fully finalized CAD architecture and isolated power system were successfully manufactured via rapid 3D printing and integrated into an operational end-to-end telemetry platform. The prototype achieved tool-free sensor hot-swapping and low-latency edge-AI fire detection while successfully preserving maximum flight endurance for the host drone.",
+        "skills": {
+            "Core Skills": [
+                "Parametric CAD Modeling",
+                "Embedded Control",
+                "Design for Manufacturability (DFM)",
+                "Finite Element Analysis (FEA)",
+                "Isolated Power System Engineering",
+                "Additive Manufacturing",
+                "Thermal Management Design",
+                "Rapid Prototyping",
+                "Cross-Functional Communication",
+                "Aerospace System Integration"
+            ]
+        }
+    }
+}

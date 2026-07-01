@@ -1,0 +1,179 @@
+/* ========================================================
+   INDUSTRIAL GEOMETRIC TEXT NAVIGATION SYSTEM
+   ======================================================== */
+.article-nav-section {
+    position: fixed;
+    right: 4.5rem;
+    bottom: 4.5rem;
+    display: flex;
+    flex-direction: row; /* Aligns BACK and NEXT side-by-side like the reference image */
+    gap: 1.5rem;
+    z-index: 500;
+}
+
+.article-nav-button {
+    position: relative;
+    height: 48px;
+    padding: 0 2.25rem;
+    background: transparent; /* Clean slate transparency until hover sweep triggers */
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50px; /* Rounded pill style matching settings controls */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    overflow: hidden; /* Clips the background color sweep edge lines cleanly */
+    transition: border-color var(--t) ease, transform var(--t) ease, box-shadow var(--t) ease;
+}
+
+/* --- THE MECHANICAL COLOR SWEEP ENGINE --- */
+.article-nav-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Dynamically fills using your established theme variables */
+    background-color: var(--accent); 
+    border-radius: inherit; /* Ensure background sweep is also rounded */
+    
+    z-index: 1;
+    transform: scaleX(0); /* Starts completely collapsed on the left edge */
+    transform-origin: left center; /* Enforces absolute left-to-right fill tracking */
+    transition: transform 350ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- HOVER INTERACTION OVERRIDES --- */
+.article-nav-button:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Fires the left-to-right solid color fill animation */
+.article-nav-button:hover::before {
+    transform: scaleX(1);
+}
+
+.article-nav-button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* --- TEXT AND COMPONENT DECORATION STYLING --- */
+.nav-btn-text {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #ffffff !important;
+    position: relative;
+    z-index: 2; /* Pushes text layer cleanly above the sliding color sweep plane */
+    transition: color 250ms ease;
+}
+
+/* Changes text to black if your active theme color is light (matches yellow button reference) */
+.article-nav-button:hover .nav-btn-text {
+    color: #000000 !important;
+}
+
+/* Subtle architectural graphic indicator line inside buttons */
+.nav-btn-line {
+    width: 16px;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.6);
+    position: relative;
+    z-index: 2;
+    transition: all 250ms ease;
+}
+
+.article-nav-button:hover .nav-btn-line {
+    background-color: #000000;
+    width: 24px; /* Extends slightly on hover for an adaptive tactile feedback response */
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (Mobile & Tablet)
+   ======================================================== */
+@media (max-width: 1024px) {
+    .article-nav-section {
+        right: 0 !important;
+        left: 0 !important;
+        bottom: 1.5rem !important;
+        justify-content: center !important;
+        padding: 0 1rem !important;
+        gap: 0.75rem !important;
+    }
+    
+    .article-nav-button {
+        padding: 0 1rem !important;
+        flex: 1 !important; /* Equal width buttons */
+        height: 44px !important;
+    }
+    
+    .nav-btn-text {
+        font-size: 0.7rem !important;
+        letter-spacing: 1px !important;
+        text-align: center !important;
+        white-space: normal !important;
+        line-height: 1.1 !important;
+    }
+}
+
+/* ========================================================
+   PHONE LAYOUT NAV OVERRIDES
+   ======================================================== */
+.article-nav-section {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    right: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 1rem 1rem 1.5rem 1rem !important;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%) !important;
+    z-index: 500 !important;
+    gap: 0.75rem !important;
+}
+
+.nav-buttons-row {
+    display: flex;
+    width: 100%;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.article-nav-button {
+    flex: 1 !important;
+    height: 48px !important;
+    padding: 0 1rem !important;
+}
+
+.nav-btn-text {
+    font-size: 0.7rem !important;
+    letter-spacing: 1px !important;
+    white-space: normal !important;
+    text-align: center !important;
+}
+
+.get-in-touch-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+.get-in-touch-btn:hover {
+    background: var(--accent);
+}
