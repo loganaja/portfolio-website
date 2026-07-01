@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logan Archibald | Mechatronics Portfolio</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Styles/global.css">
+    <link rel="stylesheet" href="Styles/index.css">
+    <link rel="stylesheet" href="Styles/navigation-arrows.css">
+    <link rel="stylesheet" href="Styles/navigation-dropdown.css">
+    <link rel="stylesheet" href="Styles/slides.css">
+    <link rel="stylesheet" href="Styles/contact.css">
+    <link rel="stylesheet" href="Styles/profile-drawer.css"> 
+</head>
+<body>
+
+    <nav>
+        <div id="nav-mobile-section">
+            <button class="header-nav-sweep-btn brand-home-btn" onclick="toggleProfileDrawer()">
+                <span class="nav-btn-text">LOGAN ARCHIBALD</span>
+            </button>
+
+            <div class="nav-dropdown-wrapper">
+                <button class="nav-title-tag dynamic-dropdown-btn">
+                    MECHATRONICS PORTFOLIO & ROBOTICS <i class="fa-solid fa-chevron-down" style="margin-left: 8px; font-size: 0.75rem;"></i>
+                </button>
+                
+                <ul class="dropdown-content-menu">
+                    <li>
+                        <button onclick="navigateToSection(0)">
+                            <i class="fa-solid fa-house" style="margin-right: 20px; font-size: 1rem;"></i> Home Hub
+                        </button>
+                    </li>
+                    
+                    <li class="has-nested-submenu">
+                        <button class="nested-trigger-item">Trajan Scientific <i class="fa-solid fa-chevron-right sub-chevron"></i></button>
+                        <ul class="nested-flyout-menu">
+                            <li><button onclick="navigateToSection(1)">Syringe Cylinders (MK1-MK3)</button></li>
+                            <li><button onclick="navigateToSection(4)">Lapping Machines (4-5)</button></li>
+                            <li><button onclick="navigateToSection(6)">Random Assignments</button></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="has-nested-submenu">
+                        <button class="nested-trigger-item">Boeing Aerostructures <i class="fa-solid fa-chevron-right sub-chevron"></i></button>
+                        <ul class="nested-flyout-menu">
+                            <li><button onclick="navigateToSection(8)">Industrial Placement Internship</button></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="has-nested-submenu">
+                        <button class="nested-trigger-item">University Projects <i class="fa-solid fa-chevron-right sub-chevron"></i></button>
+                        <ul class="nested-flyout-menu">
+                            <li><button onclick="navigateToSection(9)">STMP Project</button></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="has-nested-submenu">
+                        <button class="nested-trigger-item">Personal Projects <i class="fa-solid fa-chevron-right sub-chevron"></i></button>
+                        <ul class="nested-flyout-menu">
+                            <li><button onclick="navigateToSection(10)">Autonomous FPV Waypoint Drone</button></li>
+                            <li><button onclick="navigateToSection(0)">Portfolio Website Design</button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main id="timeline-stage"></main>
+
+    <!-- CAROUSEL CONTROLS -->
+    <div class="article-nav-section">
+        <div class="nav-buttons-row">
+            <button class="article-nav-button nav-back-btn" type="button" onclick="handleLeftClick()">
+                <span class="nav-btn-line"></span>
+                <span class="nav-btn-text">BACK</span>
+            </button>
+            <button class="article-nav-button nav-next-btn" type="button" onclick="handleRightClick()">
+                <span class="nav-btn-text">NEXT</span>
+                <span class="nav-btn-line"></span>
+            </button>
+        </div>
+        <button class="get-in-touch-btn" onclick="toggleContactModal()">GET IN TOUCH WITH ME</button>
+    </div>
+
+    <!-- CONTACT OVERLAY MODAL -->
+    <div id="contact-modal" class="modal-overlay" data-state="closed">
+        <div class="modal-mask" onclick="toggleContactModal()"></div>
+        <div class="modal-window-container">
+            <button class="modal-close-btn" onclick="toggleContactModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-split-layout">
+                <div class="modal-form-side">
+                    <h3>Let's Talk</h3>
+                    <form action="https://formspree.io/f/your_id_here" method="POST">
+                        <div class="form-group">
+                            <label for="form-name">Your Name *</label>
+                            <input type="text" id="form-name" name="name" required autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-email">Email *</label>
+                            <input type="email" id="form-email" name="email" required autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-msg">Message *</label>
+                            <textarea id="form-msg" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit-btn">SEND MESSAGE</button>
+                    </form>
+                </div>
+                <div class="modal-info-side">
+                    <h3>Contact Info</h3>
+                    <div class="info-block">
+                        <a href="https://linkedin.com/in/logan-archibald-6a1404312" target="_blank" class="social-icon-btn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <span class="info-label">Connect on LinkedIn</span>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-label">Email Me</span>
+                        <a href="mailto:loganarchibald03@outlook.com" class="info-value-link">loganarchibald03@outlook.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- FIXED: Correctly isolated structural closing tag pairs -->
+
+    <!-- ========================================================
+       SLIDE-OUT GLASSMORPHIC PROFILE DRAWER (UPGRADED DESIGN)
+       ======================================================== -->
+    <div id="profile-drawer" class="drawer-overlay" data-state="closed">
+        <div class="drawer-mask" onclick="toggleProfileDrawer()"></div>
+        
+        <div class="drawer-window-container">
+            <div class="drawer-body-layout">
+                
+                <!-- Expanded Profile Image Frame (Referencing Verified File Asset) -->
+                <div class="profile-image-frame" style="background-image: url('../Assets/logan-profile.jpg');"></div>
+
+                <!-- Meta Details -->
+                <div class="profile-meta-display" style="position: relative;">
+                    <!-- Circular close button moved down to the text box -->
+                    <button class="drawer-close-btn" onclick="toggleProfileDrawer()"><i class="fa-solid fa-xmark"></i></button>
+
+                    <h2>Logan Archibald</h2>
+                    <span class="profile-subtitle-tag">Mechatronics & Robotics Engineering (Honours)</span>
+                    <p class="profile-institution">Swinburne University of Technology | Propel Scholarship recipient </p>
+                    
+                    <!-- Professional Profile Summary Block -->
+                    <p class="profile-summary-text">
+                        Mechatronics & Robotics Engineering 3rd year undergraduate and Propel Scholarship recipient. With hands on technical internship experience in Tier-1 aerospace manufacturing systems at Boeing and high-precision analytical instrumentation automation at Trajan Scientific and Medical. Specializes in custom mechanical design, firmware development, industrial robotic programming, and process reliability architectures.
+                    </p>
+                </div>
+                
+                <hr class="profile-divider">
+
+                <!-- Action Links Stack -->
+                <div class="profile-links-stack">
+                    <a href="https://linkedin.com/in/logan-archibald-6a1404312" target="_blank" class="profile-action-row">
+                        <span class="link-label"><i class="fa-brands fa-linkedin-in"></i> LinkedIn Profile</span>
+                      
+                    </a>
+                    
+                    <!-- Referencing Verified PDF Document File Asset -->
+                    <a href="../Assets/Logan_Archibald_Resume_Internship.pdf" download="Logan_Archibald_Resume_Internship.pdf" class="profile-action-row download-highlight">
+                        <span class="link-label"></i> Download Resume (PDF)</span>
+                        
+                    </a>
+                </div>
+
+                <!-- Pinned Bottom Close Button Row -->
+                <div class="drawer-footer-controls">
+                    <button class="header-nav-sweep-btn drawer-back-btn" onclick="toggleProfileDrawer()">
+                        <span class="nav-btn-text">CLOSE</span>
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+/* ========================================================
+   GLOBAL CONFIGURATION & DESIGN SYSTEM TOKENS
+   ======================================================== */
+:root {
+    --bg-color: #0b0f19;
+    --card-bg: rgba(255, 255, 255, 0.04); /* Ultra-translucent glass layer */
+    --text-main: #ffffff;                 /* Pure crisp white text everywhere */
+    --accent: #3b82f6;                    /* High-visibility electric blue */
+    --t: 400ms;
+    
+    --neumorphic-outer: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --neumorphic-inner: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main); /* Forces all child elements to inherit white color */
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Ensure headings inherit the same white font */
+h1, h2, h3, h4, p, span, button, a {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-main) !important;
+}
+/* ========================================================
+   INDUSTRIAL GEOMETRIC HEADER NAVIGATION SYSTEM
+   ======================================================== */
+.header-nav-sweep-btn {
+    position: relative;
+    height: 42px; /* Sleek, slightly lower profile height matching the header line */
+    padding: 0 1.75rem;
+    background: transparent; /* Seamless clean start state */
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50px; /* Rounded pill border matching settings style */
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Clips the background color sweep clean */
+    transition: border-color var(--t) ease, transform var(--t) ease, box-shadow var(--t) ease;
+}
+
+/* --- THE HEADER MECHANICAL SWEEP ENGINE --- */
+.header-nav-sweep-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Tracks the active slide's theme accent automatically */
+    background-color: var(--accent); 
+    border-radius: inherit; /* Ensure sweep background is also rounded */
+    
+    z-index: 1;
+    transform: scaleX(0); /* Starts completely collapsed on the left edge */
+    transform-origin: left center; /* Absolute left-to-right expansion path tracking */
+    transition: transform 350ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- INTERACTIVE ACTION HIGHLIGHTS --- */
+.header-nav-sweep-btn:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+/* Fires the left-to-right solid color fill animation on hover */
+.header-nav-sweep-btn:hover::before {
+    transform: scaleX(1);
+}
+
+.header-nav-sweep-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* --- TYPOGRAPHY CORE OVERRIDES --- */
+.header-nav-sweep-btn .nav-btn-text {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #ffffff !important;
+    position: relative;
+    z-index: 2; /* Keeps the text stacked cleanly over the top of the color layer */
+    transition: color 250ms ease;
+}
+
+/* Instantly flips text to black for extreme contrast once the background fills solid */
+.header-nav-sweep-btn:hover .nav-btn-text {
+    color: #000000 !important;
+}
+
+/* Optional custom tweak for your logo button if you want it to feel structurally distinct */
+.brand-home-btn {
+    border-color: rgba(255, 255, 255, 0.1); /* Subtle starting border edge for the logo name */
+}

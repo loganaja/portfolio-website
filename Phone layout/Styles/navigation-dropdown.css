@@ -1,0 +1,255 @@
+/* ========================================================
+   1. CORE STRUCTURE & TRIGGER BADGE LAYOUT
+   ======================================================== */
+.nav-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.dynamic-dropdown-btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+}
+
+.nav-dropdown-wrapper:hover .dynamic-dropdown-btn {
+    color: var(--accent);
+    box-shadow: var(--neumorphic-inner);
+}
+
+/* ========================================================
+   2. DROPDOWN CONTAINERS (ROOT & NESTED FLYOUTS)
+   ======================================================== */
+/* --- THE MAIN TIMELINE ROOT MENU TIER --- */
+ul.dropdown-content-menu {
+    list-style: none;
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    min-width: 240px;
+    border-radius: 1.5rem; /* Smoother corner curves */
+    padding: 0.6rem;
+    z-index: 9999;
+    
+    /* Clear parent layer for hardware-composited layer rendering compatibility */
+    background: transparent; 
+    border: none;
+    box-shadow: none;
+    
+    /* Pre-rendered hidden visibility prevents browser rendering lag pop */
+    pointer-events: none;
+    visibility: hidden;
+    transition: transform var(--t) ease, visibility 0s linear var(--t);
+}
+
+/* --- THE NESTED CASCADING SIDE-FLYOUTS --- */
+ul.nested-flyout-menu {
+    list-style: none;
+    position: absolute;
+    top: -6px; 
+    left: 102%; 
+    min-width: 250px;
+    border-radius: 1.5rem; /* Smoother corner curves */
+    padding: 0.6rem;
+    transform: translateX(10px);
+    z-index: 10000; 
+    
+    /* Clear parent layer for hardware-composited layer rendering compatibility */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    
+    /* Pre-rendered hidden visibility prevents browser rendering lag pop */
+    pointer-events: none;
+    visibility: hidden;
+    transition: transform 300ms ease, visibility 0s linear 300ms;
+}
+
+/* ========================================================
+   3. INDEPENDENT BACKGROUND BEZELS (PRE-RENDERED GLASS SYSTEM)
+   ======================================================== */
+/* Generates individual compositing graphics layers so both boxes blur cleanly */
+ul.dropdown-content-menu::before,
+ul.nested-flyout-menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem; /* Matches parent rounding */
+    z-index: -1; /* Layer behind item button link text */
+    
+    /* Adaptive white glass tokens */
+    background: rgba(255, 255, 255, 0.08); 
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+    
+    /* Smoothly crossfades lighting opacity while heavy blur stays cached */
+    opacity: 0;
+    transition: opacity 250ms ease;
+}
+
+/* ========================================================
+   4. HOVER INTERACTION MECHANICS & ANIMATION STATES
+   ======================================================== */
+/* --- ROOT MENU REVEAL CONTROLS --- */
+.nav-dropdown-wrapper:hover ul.dropdown-content-menu {
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+    transition-delay: 0s;
+}
+.nav-dropdown-wrapper:hover ul.dropdown-content-menu::before {
+    opacity: 1;
+}
+
+/* --- SUBMENU FLYOUT REVEAL CONTROLS --- */
+li.has-nested-submenu:hover ul.nested-flyout-menu {
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0);
+    transition-delay: 0s;
+}
+li.has-nested-submenu:hover ul.nested-flyout-menu::before {
+    opacity: 1;
+}
+
+/* ========================================================
+   5. MENU BUTTON TYPOGRAPHY & LIST SELECTION LINKS
+   ======================================================== */
+.dropdown-content-menu li {
+    position: relative; 
+    width: 100%;
+}
+
+/* Standard nested typography blueprints */
+.dropdown-content-menu button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0.8rem 1.25rem;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 50px; /* Rounded pill dropdown menu item */
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    transition: all var(--t) cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- TEARDOWN OPTIMIZATION: SUBMENU TEXT VISIBILITY --- */
+ul.nested-flyout-menu button {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 150ms ease, visibility 0s linear 150ms;
+}
+
+li.has-nested-submenu:hover ul.nested-flyout-menu button {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 200ms ease 100ms, visibility 0s linear 0s;
+}
+
+/* --- HIGHLIGHT STATES: ACCENT THEME SOLID COLOR --- */
+.dropdown-content-menu button:hover,
+.dropdown-content-menu .nested-trigger-item:hover,
+.nested-flyout-menu button:hover {
+    background: var(--accent) !important; 
+    color: #ffffff !important; 
+    padding-left: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Force elements white when containing submenu row block triggers */
+.has-nested-submenu:hover > .nested-trigger-item,
+.has-nested-submenu:hover .sub-chevron {
+    color: #ffffff !important;
+}
+
+/* ========================================================
+   6. NAVIGATION PATH CHEVRONS & HIT BOX SAFETY LAYERS
+   ======================================================== */
+.sub-chevron {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    color: #ffffff;
+    transition: transform var(--t);
+}
+
+li.has-nested-submenu:hover .sub-chevron {
+    transform: translateX(3px);
+}
+
+/* --- MOUSE TRACKING AIRBRIDGES --- */
+/* Horizontal protective travel spacer bridge */
+.has-nested-submenu::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 4%;
+    height: 100%;
+    background: transparent;
+}
+
+/* Vertical protective gap spacer bridge below navigation bar header */
+.nav-dropdown-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: transparent;
+}
+
+/* ========================================================
+   7. GLOBAL TYPE SPECIFICATION INHERITANCE OVERRIDES
+   ======================================================== */
+.dropdown-content-menu button,
+.nested-trigger-item,
+.dropdown-content-menu li button {
+    color: #ffffff !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+/* ========================================================
+   PHONE LAYOUT DROPDOWN FIXES
+   ======================================================== */
+ul.dropdown-content-menu {
+    left: 0 !important;
+    right: 0 !important;
+    transform: translateY(-10px) !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    /* Increase delay so it doesn't vanish instantly on mobile touch */
+    transition: transform 300ms ease, visibility 0s linear 300ms, opacity 300ms !important;
+}
+.nav-dropdown-wrapper:hover ul.dropdown-content-menu {
+    transform: translateY(0) !important;
+    transition-delay: 0s !important;
+}
+
+ul.nested-flyout-menu {
+    position: static !important; /* Stack directly below parent */
+    transform: none !important;
+    width: 100% !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+li.has-nested-submenu:hover ul.nested-flyout-menu {
+    transform: none !important;
+}
+/* Ensure the background bevels adapt to the new static layout */
+ul.nested-flyout-menu::before {
+    display: none !important; /* Just use parent background */
+}

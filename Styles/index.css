@@ -1,0 +1,49 @@
+/* ========================================================
+   MAIN PORTFOLIO INDEX FRAMEWORK LAYOUT
+   ======================================================== */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    
+    /* CRITICAL FIXES */
+    z-index: 99999; /* Forces the nav completely above all slider transitions */
+    background: transparent;
+    isolation: isolate; /* Creates a clean, isolated stacking context for children */
+}
+#nav-mobile-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: var(--text-main);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--neumorphic-outer);
+}
+
+.nav-title-tag {
+    padding: 0.75rem 2rem;
+    border-radius: 50px; /* Pill dropdown style matching Voice Activation trigger */
+    border: 1px solid rgba(255, 255, 255, 0.12) !important; /* Force border to show up */
+    background: rgba(255, 255, 255, 0.05) !important; /* Translucent glass tint */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: var(--text-main);
+    transition: background var(--t) ease, border-color var(--t) ease, box-shadow var(--t) ease;
+}
