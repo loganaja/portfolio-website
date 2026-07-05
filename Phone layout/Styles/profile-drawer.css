@@ -203,12 +203,12 @@ body.modal-active nav .dynamic-dropdown-btn {
     transition: transform 350ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.profile-action-row:hover {
+.profile-action-row:active {
     border-color: var(--accent);
-    transform: translateX(4px); /* Micro right-shift on horizontal hover tracking */
+    transform: translateX(4px); /* Micro right-shift on tap */
 }
 
-.profile-action-row:hover::before {
+.profile-action-row:active::before {
     transform: scaleX(1);
 }
 
@@ -228,8 +228,8 @@ body.modal-active nav .dynamic-dropdown-btn {
 }
 
 /* Instantly shifts typography contrast layer elements to pitch black over active fill overlays */
-.profile-action-row:hover .link-label,
-.profile-action-row:hover i {
+.profile-action-row:active .link-label,
+.profile-action-row:active i {
     color: #000000 !important;
     opacity: 1;
 }

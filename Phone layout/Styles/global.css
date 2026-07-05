@@ -70,18 +70,14 @@ h1, h2, h3, h4, p, span, button, a {
 }
 
 /* --- INTERACTIVE ACTION HIGHLIGHTS --- */
-.header-nav-sweep-btn:hover {
-    border-color: var(--accent);
-    transform: translateY(-1px);
-}
-
-/* Fires the left-to-right solid color fill animation on hover */
-.header-nav-sweep-btn:hover::before {
-    transform: scaleX(1);
-}
-
 .header-nav-sweep-btn:active {
+    border-color: var(--accent);
     transform: translateY(0) scale(0.98);
+}
+
+/* Fires the left-to-right solid color fill animation ONLY while tapping */
+.header-nav-sweep-btn:active::before {
+    transform: scaleX(1);
 }
 
 /* --- TYPOGRAPHY CORE OVERRIDES --- */
@@ -97,7 +93,7 @@ h1, h2, h3, h4, p, span, button, a {
 }
 
 /* Instantly flips text to black for extreme contrast once the background fills solid */
-.header-nav-sweep-btn:hover .nav-btn-text {
+.header-nav-sweep-btn:active .nav-btn-text {
     color: #000000 !important;
 }
 

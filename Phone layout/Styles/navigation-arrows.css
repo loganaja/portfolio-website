@@ -46,19 +46,15 @@
     transition: transform 350ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* --- HOVER INTERACTION OVERRIDES --- */
-.article-nav-button:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-}
-
-/* Fires the left-to-right solid color fill animation */
-.article-nav-button:hover::before {
-    transform: scaleX(1);
-}
-
+/* --- TAP INTERACTION OVERRIDES (Mobile) --- */
 .article-nav-button:active {
+    border-color: var(--accent);
     transform: translateY(0) scale(0.98);
+}
+
+/* Fires the left-to-right solid color fill animation only while tapping */
+.article-nav-button:active::before {
+    transform: scaleX(1);
 }
 
 /* --- TEXT AND COMPONENT DECORATION STYLING --- */
@@ -73,8 +69,9 @@
     transition: color 250ms ease;
 }
 
-/* Changes text to black if your active theme color is light (matches yellow button reference) */
-.article-nav-button:hover .nav-btn-text {
+/* Instantly changes typography color for high contrast against the solid color fill */
+.article-nav-button:active .nav-btn-text,
+.article-nav-button:active i {
     color: #000000 !important;
 }
 
@@ -178,6 +175,6 @@
     font-size: 0.8rem;
     transition: all 0.3s ease;
 }
-.get-in-touch-btn:hover {
+.get-in-touch-btn:active {
     background: var(--accent);
 }

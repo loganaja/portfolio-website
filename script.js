@@ -26,14 +26,14 @@ function updateBackgroundTheme(index) {
     stage.className = 'theme-home';
     document.documentElement.style.setProperty('--accent', '#3b82f6'); // Electric Blue
   } else if (index >= 1 && index <= 7) {
-    stage.className = 'theme-trajan';                                 // Dynamic Red
-    document.documentElement.style.setProperty('--accent', '#dc2626'); 
+    stage.className = 'theme-trajan';                                 // Trajan Red
+    document.documentElement.style.setProperty('--accent', '#D0202E'); 
   } else if (index === 8) {
-    stage.className = 'theme-boeing';                                 // Aerospace Sky Blue
-    document.documentElement.style.setProperty('--accent', '#0284c7'); 
+    stage.className = 'theme-boeing';                                 // Boeing Blue
+    document.documentElement.style.setProperty('--accent', '#0039A6'); 
   } else if (index === 9) {
-    stage.className = 'theme-uni';                                    // Swinburne Orange/Red
-    document.documentElement.style.setProperty('--accent', '#f97316'); 
+    stage.className = 'theme-uni';                                    // Swinburne Red
+    document.documentElement.style.setProperty('--accent', '#E5252A'); 
   } else if (index === 10) {
     stage.className = 'theme-personal';                               // FPV Purple
     document.documentElement.style.setProperty('--accent', '#a855f7'); 
