@@ -103,5 +103,9 @@ h1, h2, h3, h4, p, span, button, a {
 
 /* Optional custom tweak for your logo button if you want it to feel structurally distinct */
 .brand-home-btn {
-    border-color: rgba(255, 255, 255, 0.1); /* Subtle starting border edge for the logo name */
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
