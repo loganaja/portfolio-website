@@ -140,9 +140,9 @@ ul.nested-flyout-menu button {
 /* Removed hover visibility rules for mobile to prevent iOS double-tap bugs */
 
 /* --- HIGHLIGHT STATES: ACCENT THEME SOLID COLOR --- */
-.dropdown-content-menu button:hover,
-.dropdown-content-menu .nested-trigger-item:hover,
-.nested-flyout-menu button:hover {
+.dropdown-content-menu button:active,
+.dropdown-content-menu .nested-trigger-item:active,
+.nested-flyout-menu button:active {
     background: var(--accent) !important; 
     color: #ffffff !important; 
     padding-left: 1.5rem;
@@ -150,8 +150,8 @@ ul.nested-flyout-menu button {
 }
 
 /* Force elements white when containing submenu row block triggers */
-.has-nested-submenu:hover > .nested-trigger-item,
-.has-nested-submenu:hover .sub-chevron {
+.has-nested-submenu:active > .nested-trigger-item,
+.has-nested-submenu:active .sub-chevron {
     color: #ffffff !important;
 }
 
@@ -165,7 +165,7 @@ ul.nested-flyout-menu button {
     transition: transform var(--t);
 }
 
-li.has-nested-submenu:hover .sub-chevron {
+li.has-nested-submenu:active .sub-chevron {
     transform: translateX(3px);
 }
 
@@ -222,7 +222,7 @@ ul.dropdown-content-menu::before {
 }
 
 /* Disable native desktop hover sticking on mobile */
-.nav-dropdown-wrapper:hover ul.dropdown-content-menu {
+.nav-dropdown-wrapper:active ul.dropdown-content-menu {
     transform: translateY(-10px) !important;
     opacity: 0 !important;
     visibility: hidden !important;
