@@ -619,18 +619,19 @@ nav {
 .brand-home-btn {
     background: rgba(255,255,255,0.1) !important;
     border: 1px solid rgba(255,255,255,0.2) !important;
-    border-radius: 50px !important;
-    padding: 10px 16px !important;
+    border-radius: 50% !important; /* Perfect circle */
+    width: 42px !important;
+    height: 42px !important;
+    padding: 0 !important;
     color: white !important;
     font-weight: 800 !important;
-    font-size: 0.65rem !important;
-    letter-spacing: 1px !important;
-    height: auto !important;
+    font-size: 0.9rem !important; /* Slightly larger text for LA */
+    letter-spacing: 0 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     white-space: nowrap !important;
-    flex: 0 0 auto !important; /* prevent shrinking */
+    flex: 0 0 42px !important; /* Fixed size, prevent shrinking */
 }
 .brand-home-btn::before { display: none !important; } /* Remove sweep effect */
 
@@ -665,17 +666,16 @@ nav {
     margin-left: 6px !important;
 }
 
-/* Equal width top nav buttons */
+/* Ensure dynamic button stretches */
 #nav-mobile-section {
-    gap: 0.5rem !important;
+    gap: 0.75rem !important;
 }
 .brand-home-btn {
-    flex: 1 !important;
-    width: 100% !important;
+    /* Removed flex: 1 and width: 100% so it stays a circle */
 }
 .nav-dropdown-wrapper {
     flex: 1 !important;
-    width: 100% !important;
+    width: auto !important;
 }
 .dynamic-dropdown-btn {
     width: 100% !important;
