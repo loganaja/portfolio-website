@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logan Archibald | Mechatronics & Robotics Portfolio</title>
     
+    <!-- Mobile Auto-Redirect -->
+    <script>
+        if (window.innerWidth <= 1024 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            // Only redirect if we are not already in the Phone layout directory
+            if (!window.location.pathname.includes('Phone%20layout') && !window.location.pathname.includes('Phone layout')) {
+                window.location.replace('Phone layout/index.html');
+            }
+        }
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="Styles/global.css">
     <link rel="stylesheet" href="Styles/index.css">
