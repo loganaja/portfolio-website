@@ -8,9 +8,17 @@
     <!-- Mobile Auto-Redirect -->
     <script>
         if (window.innerWidth <= 1024 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            // Only redirect if we are not already in the Phone layout directory
             if (!window.location.pathname.includes('Phone%20layout') && !window.location.pathname.includes('Phone layout')) {
-                window.location.replace('Phone layout/index.html');
+                var currentUrl = window.location.href.split('?')[0].split('#')[0];
+                var newUrl;
+                if (currentUrl.endsWith('index.html')) {
+                    newUrl = currentUrl.replace('index.html', 'Phone%20layout/index.html');
+                } else if (currentUrl.endsWith('/')) {
+                    newUrl = currentUrl + 'Phone%20layout/index.html';
+                } else {
+                    newUrl = currentUrl + '/Phone%20layout/index.html';
+                }
+                window.location.replace(newUrl);
             }
         }
     </script>
