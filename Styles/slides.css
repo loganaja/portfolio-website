@@ -69,8 +69,8 @@ article {
     grid-template-columns: 1fr 1fr; 
     grid-template-rows: 1fr 1fr; 
     position: absolute;
-    inset: 100px 2.5rem 2.5rem 2.5rem; 
-    gap: 2.5rem;
+    inset: 100px 2.5rem 9.5rem 2.5rem; 
+    gap: clamp(1rem, 2vw, 2.5rem);
     transition: transform 600ms cubic-bezier(0.25, 1, 0.5, 1), opacity 600ms ease;
     opacity: 0;
     pointer-events: none;
@@ -80,7 +80,8 @@ article {
 /* Premium Transparent Glassmorphic Cards */
 .article-section {
     border-radius: 2rem;
-    padding: 3rem;
+    padding: clamp(1.5rem, 3vw, 3rem);
+    overflow-y: auto; /* Prevent overlapping by allowing scroll */
     
     /* REFACTORED: Completely transparent slate stripped, replaced with clear frost */
     background-color: rgba(255, 255, 255, 0.03); 
@@ -95,6 +96,24 @@ article {
     /* Medium frosting level to maintain high-contrast text layout separation */
     backdrop-filter: blur(16px) saturate(120%);
     -webkit-backdrop-filter: blur(16px) saturate(120%);
+}
+
+/* --- CUSTOM SCROLLBAR FOR TEXT BOXES TO INDICATE SCROLLABILITY --- */
+.article-section::-webkit-scrollbar {
+    width: 6px;
+}
+.article-section::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+    margin-block: 2rem; /* Keep track padded from the box edges */
+}
+.article-section::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.article-section::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
 }
 
 /* Ensure link text elements don't drop down to defaults */
@@ -392,7 +411,7 @@ article.becoming-active-from-after {
 }
 
 .skills-category li {
-    font-size: 1.05rem;
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
     margin-bottom: 0.5rem;
     color: rgba(255, 255, 255, 0.8) !important;
 }
@@ -400,7 +419,7 @@ article.becoming-active-from-after {
 /* --- TITLE COMPONENT --- */
 .home-title-box h2,
 .home-title-header h2 {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
     font-weight: 800;
     letter-spacing: -0.5px;
     line-height: 1.2;
@@ -423,7 +442,7 @@ article.becoming-active-from-after {
 
 /* --- DESCRIPTION COMPONENT --- */
 .home-summary-content p {
-    font-size: 1.05rem;
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8) !important;
 }

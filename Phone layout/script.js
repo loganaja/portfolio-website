@@ -190,6 +190,12 @@ const navigateToSection = (targetIndex) => {
 
   document.body.classList.add("menu-active");
 
+  // Automatically close mobile dropdown menus upon navigation
+  const dropdownWrapper = document.querySelector('.nav-dropdown-wrapper');
+  if (dropdownWrapper) dropdownWrapper.classList.remove('is-open');
+  const openSubmenus = document.querySelectorAll('.has-nested-submenu.is-open');
+  openSubmenus.forEach(submenu => submenu.classList.remove('is-open'));
+
   const currentSlide = document.querySelector(`article[data-index="${activeIndex}"]`),
         nextSlide = document.querySelector(`article[data-index="${targetIndex}"]`);
 
@@ -271,3 +277,44 @@ function initParallaxHover() {
     }
     setInterval(update, 1000/60);
 }
+
+// ========================================================
+// 7. CLICK-BASED NAVIGATION DROPDOWN FOR MOBILE
+// ========================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const mainDropdownBtn = document.querySelector('.dynamic-dropdown-btn');
+    const dropdownWrapper = document.querySelector('.nav-dropdown-wrapper');
+    const nestedTriggers = document.querySelectorAll('.nested-trigger-item');
+    
+    if(mainDropdownBtn && dropdownWrapper) {
+        mainDropdownBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropdownWrapper.classList.toggle('is-open');
+        });
+    }
+
+    nestedTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const parentLi = trigger.closest('li');
+            if (parentLi) {
+                parentLi.classList.toggle('is-open');
+            }
+        });
+    });
+
+    // Close dropdowns when tapping outside
+    document.addEventListener('click', (e) => {
+        if (dropdownWrapper && !dropdownWrapper.contains(e.target)) {
+            dropdownWrapper.classList.remove('is-open');
+        }
+        nestedTriggers.forEach(trigger => {
+            const parentLi = trigger.closest('li');
+            if (parentLi && !parentLi.contains(e.target)) {
+                parentLi.classList.remove('is-open');
+            }
+        });
+    });
+});

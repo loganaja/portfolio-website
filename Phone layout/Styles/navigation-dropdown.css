@@ -98,26 +98,10 @@ ul.nested-flyout-menu::before {
    4. HOVER INTERACTION MECHANICS & ANIMATION STATES
    ======================================================== */
 /* --- ROOT MENU REVEAL CONTROLS --- */
-.nav-dropdown-wrapper:hover ul.dropdown-content-menu {
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-    transition-delay: 0s;
-}
-.nav-dropdown-wrapper:hover ul.dropdown-content-menu::before {
-    opacity: 1;
-}
+/* Hover disabled for mobile to prevent double-tap issues */
 
 /* --- SUBMENU FLYOUT REVEAL CONTROLS --- */
-li.has-nested-submenu:hover ul.nested-flyout-menu {
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateX(0);
-    transition-delay: 0s;
-}
-li.has-nested-submenu:hover ul.nested-flyout-menu::before {
-    opacity: 1;
-}
+/* Hover disabled for mobile to prevent double-tap issues */
 
 /* ========================================================
    5. MENU BUTTON TYPOGRAPHY & LIST SELECTION LINKS
@@ -149,16 +133,11 @@ li.has-nested-submenu:hover ul.nested-flyout-menu::before {
 
 /* --- TEARDOWN OPTIMIZATION: SUBMENU TEXT VISIBILITY --- */
 ul.nested-flyout-menu button {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 150ms ease, visibility 0s linear 150ms;
-}
-
-li.has-nested-submenu:hover ul.nested-flyout-menu button {
     opacity: 1;
     visibility: visible;
-    transition: opacity 200ms ease 100ms, visibility 0s linear 0s;
 }
+
+/* Removed hover visibility rules for mobile to prevent iOS double-tap bugs */
 
 /* --- HIGHLIGHT STATES: ACCENT THEME SOLID COLOR --- */
 .dropdown-content-menu button:hover,
@@ -231,25 +210,80 @@ ul.dropdown-content-menu {
     transform: translateY(-10px) !important;
     width: 100% !important;
     min-width: 100% !important;
-    /* Increase delay so it doesn't vanish instantly on mobile touch */
     transition: transform 300ms ease, visibility 0s linear 300ms, opacity 300ms !important;
 }
+
+ul.dropdown-content-menu::before {
+    background: rgba(25, 25, 30, 0.85) !important; /* Darker, more solid background to match the buttons at the bottom */
+    backdrop-filter: blur(15px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(15px) saturate(150%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Disable native desktop hover sticking on mobile */
 .nav-dropdown-wrapper:hover ul.dropdown-content-menu {
+    transform: translateY(-10px) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Enable purely via JS click class */
+.nav-dropdown-wrapper.is-open ul.dropdown-content-menu {
     transform: translateY(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
     transition-delay: 0s !important;
+}
+
+.nav-dropdown-wrapper.is-open ul.dropdown-content-menu::before {
+    opacity: 1 !important;
 }
 
 ul.nested-flyout-menu {
     position: static !important; /* Stack directly below parent */
     transform: none !important;
     width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 300ms ease, opacity 300ms ease, padding 300ms ease, margin 300ms ease, visibility 0s linear 300ms !important;
+}
+
+/* Disable native desktop hover sticking */
+li.has-nested-submenu:hover ul.nested-flyout-menu {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Enable purely via JS click class */
+li.has-nested-submenu.is-open ul.nested-flyout-menu {
+    transform: none !important;
+    max-height: 500px !important;
     margin-top: 0.5rem !important;
     margin-bottom: 0.5rem !important;
+    padding: 0.6rem !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transition: max-height 300ms ease, opacity 300ms ease, padding 300ms ease, margin 300ms ease, visibility 0s linear 0s !important;
 }
-li.has-nested-submenu:hover ul.nested-flyout-menu {
-    transform: none !important;
-}
+
 /* Ensure the background bevels adapt to the new static layout */
 ul.nested-flyout-menu::before {
     display: none !important; /* Just use parent background */
+}
+
+/* Ensure buttons in the submenu are visible when the accordion opens */
+ul.nested-flyout-menu button {
+    visibility: visible !important;
+    opacity: 1 !important;
 }
