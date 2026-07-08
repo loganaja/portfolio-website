@@ -76,8 +76,10 @@ async function loadTimelinePortfolio() {
     allSlides[i].setAttribute('data-index', i);
     allSlides[i].className = ''; 
     
-    if (i === 0) {
+    if (i === activeIndex) {
       allSlides[i].classList.add('active');
+    } else if (i < activeIndex) {
+      allSlides[i].classList.add('before');
     } else {
       allSlides[i].classList.add('after');
     }
