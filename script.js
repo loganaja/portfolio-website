@@ -251,7 +251,7 @@ function initParallaxHover() {
             const y = remap(posY, rect.height / 2, angle);
             e.dataset.targetRotateY = x;
             e.dataset.targetRotateX = -y;
-            e.dataset.targetScale = 1.75;
+            e.dataset.targetScale = 1.25;
             e.style.zIndex = "50";
         });
         
