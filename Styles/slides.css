@@ -141,15 +141,16 @@ article {
 
 .photo-item {
     flex: none; /* Prevent stretching in the flex column */
-    background-size: cover; 
+    background-size: contain; 
     background-repeat: no-repeat;
     background-position: center;
+    background-color: transparent;
     position: relative;
     border-radius: 1.5rem;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
     transform-style: preserve-3d;
-    transform: perspective(50rem) rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
+    transform: perspective(50rem) rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg)) scale(var(--scale, 1));
 }
 
 .photo-item:nth-child(1) {

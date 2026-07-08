@@ -251,11 +251,15 @@ function initParallaxHover() {
             const y = remap(posY, rect.height / 2, angle);
             e.dataset.targetRotateY = x;
             e.dataset.targetRotateX = -y;
+            e.dataset.targetScale = 1.75;
+            e.style.zIndex = "50";
         });
         
         e.addEventListener("mouseout", (event) => {
             e.dataset.targetRotateY = 0;
             e.dataset.targetRotateX = 0;
+            e.dataset.targetScale = 1;
+            e.style.zIndex = "";
         });
     });
     
@@ -265,8 +269,13 @@ function initParallaxHover() {
             let currentX = parseFloat(e.style.getPropertyValue('--rotateX')) || 0;
             const targetY = parseFloat(e.dataset.targetRotateY) || 0;
             const targetX = parseFloat(e.dataset.targetRotateX) || 0;
+            
+            let currentScale = parseFloat(e.style.getPropertyValue('--scale')) || 1;
+            const targetScale = parseFloat(e.dataset.targetScale) || 1;
+            
             e.style.setProperty("--rotateY", lerp(currentY, targetY, 0.05) + "deg");
             e.style.setProperty("--rotateX", lerp(currentX, targetX, 0.05) + "deg");
+            e.style.setProperty("--scale", lerp(currentScale, targetScale, 0.1));
         })
     }
     setInterval(update, 1000/60);
