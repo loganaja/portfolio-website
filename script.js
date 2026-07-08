@@ -61,7 +61,7 @@ async function loadTimelinePortfolio() {
 
   for (const file of slideFiles) {
     try {
-      const response = await fetch(file);
+      const response = await fetch(file + "?v=" + new Date().getTime());
       if (!response.ok) throw new Error(`HTTP error status: ${response.status}`);
       
       const htmlContent = await response.text();
