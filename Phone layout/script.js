@@ -103,15 +103,17 @@ async function loadTimelinePortfolio() {
 // 1.5 STRICT SEQUENTIAL IMAGE LOADER (0 to 10)
 // ========================================================
 async function loadImagesSequentially() {
-  const allPhotos = document.querySelectorAll('.photo-item[data-bg]');
-  const totalImages = allPhotos.length;
+  // Only track the Home Slide (Slide 0) for the 0-100% loading screen
+  const slide0 = document.querySelector('article[data-index="0"]');
+  const slide0Photos = slide0 ? slide0.querySelectorAll('.photo-item[data-bg]') : [];
+  const targetImages = slide0Photos.length;
   let imagesLoaded = 0;
   
   function updateProgress() {
     imagesLoaded++;
-    const progressPercent = Math.min(100, Math.floor((imagesLoaded / totalImages) * 100));
+    const progressPercent = Math.min(100, Math.floor((imagesLoaded / targetImages) * 100));
     
-    // Update CSS Variable for liquid height and progress bar width
+    // Update CSS Variable for progress bar width
     document.documentElement.style.setProperty('--progress', `${progressPercent}%`);
     
     // Update Percentage Text
@@ -120,26 +122,25 @@ async function loadImagesSequentially() {
       percentText.innerText = `${progressPercent}%`;
     }
     
-    if (imagesLoaded >= totalImages) {
+    if (imagesLoaded >= targetImages) {
       const loader = document.getElementById('global-loader');
-      if (loader) {
+      if (loader && !loader.classList.contains('hidden')) {
         // Small delay so user sees 100% before it disappears
         setTimeout(() => {
           loader.classList.add('hidden');
           setTimeout(() => loader.remove(), 600);
-        }, 400);
+        }, 200);
       }
     }
   }
 
-  // If there are no images, just hide loader
-  if (totalImages === 0) {
+  // If there are no images on the home slide, hide loader immediately
+  if (targetImages === 0) {
     const loader = document.getElementById('global-loader');
     if (loader) {
       loader.classList.add('hidden');
       setTimeout(() => loader.remove(), 600);
     }
-    return;
   }
 
   const totalSlides = document.getElementsByTagName("article").length;
@@ -161,14 +162,14 @@ async function loadImagesSequentially() {
           img.onload = img.onerror = () => {
             photo.style.backgroundImage = bgStr;
             photo.removeAttribute('data-bg');
-            updateProgress();
+            if (i === 0 && targetImages > 0) updateProgress();
             resolve();
           };
           img.src = bgMatch[1];
         } else {
           photo.style.backgroundImage = bgStr;
           photo.removeAttribute('data-bg');
-          updateProgress();
+          if (i === 0 && targetImages > 0) updateProgress();
           resolve();
         }
       });
