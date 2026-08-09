@@ -111,7 +111,7 @@ h1, h2, h3, h4, p, span, button, a {
 }
 
 /* ========================================================
-   GLOBAL LOADING SCREEN
+   WATER DROPLET LOADING SCREEN
    ======================================================== */
 #global-loader {
     position: fixed;
@@ -119,49 +119,101 @@ h1, h2, h3, h4, p, span, button, a {
     z-index: 999999;
     background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #020617 100%);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: opacity 600ms ease, visibility 600ms ease;
+    transition: opacity 600ms ease, visibility 600ms ease, transform 600ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 #global-loader.hidden {
     opacity: 0;
     visibility: hidden;
+    transform: scale(1.05); /* Subtle expand on fade out */
 }
 
-.loader-content {
+.water-droplet-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    justify-content: center;
+    margin-bottom: 3rem;
 }
 
-.loader-spinner {
-    width: 50px;
-    height: 50px;
+/* The falling droplet */
+.droplet {
+    position: absolute;
+    top: -60px; /* Start above */
+    width: 24px;
+    height: 34px;
+    animation: drop-fall 2s cubic-bezier(0.4, 0, 1, 1) infinite;
+}
+
+@keyframes drop-fall {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 1; }
+    50% { transform: translateY(100px) scale(0.8, 1.2); opacity: 1; }
+    55% { transform: translateY(100px) scale(1.5, 0.5); opacity: 0; }
+    100% { transform: translateY(100px); opacity: 0; }
+}
+
+/* The circular outline */
+.liquid-ring {
+    position: relative;
+    width: 100px;
+    height: 100px;
     border: 3px solid rgba(255, 255, 255, 0.1);
-    border-top-color: #3b82f6; /* Electric Blue */
     border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 2rem;
+    overflow: hidden; /* Clips the rising liquid */
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    /* Make the inner liquid rise from the bottom */
+    display: flex;
+    align-items: flex-end;
 }
 
-.loader-content h2 {
+/* The rising liquid */
+.liquid-wave {
+    position: relative;
+    width: 200%;
+    left: -50%;
+    height: var(--progress, 0%); /* Controlled by JS */
+    background: var(--accent);
+    border-radius: 40%;
+    animation: slosh 4s linear infinite;
+    transition: height 0.3s ease-out;
+}
+
+@keyframes slosh {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* The percentage text */
+#load-percentage {
+    position: absolute;
+    bottom: -45px;
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: 2px;
-    margin-bottom: 0.5rem;
-    color: #ffffff !important;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
 }
 
-.loader-content p {
-    font-size: 0.9rem;
-    letter-spacing: 1.5px;
-    color: rgba(255, 255, 255, 0.5) !important;
-    text-transform: uppercase;
+/* The horizontal progress line */
+.loader-progress-bar-container {
+    width: 250px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+#loader-progress-bar {
+    width: var(--progress, 0%);
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease-out;
+    box-shadow: 0 0 10px var(--accent);
 }

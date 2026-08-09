@@ -103,6 +103,45 @@ async function loadTimelinePortfolio() {
 // 1.5 STRICT SEQUENTIAL IMAGE LOADER (0 to 10)
 // ========================================================
 async function loadImagesSequentially() {
+  const allPhotos = document.querySelectorAll('.photo-item[data-bg]');
+  const totalImages = allPhotos.length;
+  let imagesLoaded = 0;
+  
+  function updateProgress() {
+    imagesLoaded++;
+    const progressPercent = Math.min(100, Math.floor((imagesLoaded / totalImages) * 100));
+    
+    // Update CSS Variable for liquid height and progress bar width
+    document.documentElement.style.setProperty('--progress', `${progressPercent}%`);
+    
+    // Update Percentage Text
+    const percentText = document.getElementById('load-percentage');
+    if (percentText) {
+      percentText.innerText = `${progressPercent}%`;
+    }
+    
+    if (imagesLoaded >= totalImages) {
+      const loader = document.getElementById('global-loader');
+      if (loader) {
+        // Small delay so user sees 100% before it disappears
+        setTimeout(() => {
+          loader.classList.add('hidden');
+          setTimeout(() => loader.remove(), 600);
+        }, 400);
+      }
+    }
+  }
+
+  // If there are no images, just hide loader
+  if (totalImages === 0) {
+    const loader = document.getElementById('global-loader');
+    if (loader) {
+      loader.classList.add('hidden');
+      setTimeout(() => loader.remove(), 600);
+    }
+    return;
+  }
+
   const totalSlides = document.getElementsByTagName("article").length;
   for (let i = 0; i < totalSlides; i++) {
     const slide = document.querySelector(`article[data-index="${i}"]`);
@@ -122,25 +161,18 @@ async function loadImagesSequentially() {
           img.onload = img.onerror = () => {
             photo.style.backgroundImage = bgStr;
             photo.removeAttribute('data-bg');
+            updateProgress();
             resolve();
           };
           img.src = bgMatch[1];
         } else {
           photo.style.backgroundImage = bgStr;
           photo.removeAttribute('data-bg');
+          updateProgress();
           resolve();
         }
       });
     }));
-    
-    // Hide the loading screen as soon as Slide 0 finishes loading
-    if (i === 0) {
-      const loader = document.getElementById('global-loader');
-      if (loader) {
-        loader.classList.add('hidden');
-        setTimeout(() => loader.remove(), 600);
-      }
-    }
   }
 }
 
