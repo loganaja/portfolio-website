@@ -131,69 +131,32 @@ h1, h2, h3, h4, p, span, button, a {
     transform: scale(1.05); /* Subtle expand on fade out */
 }
 
-.water-droplet-container {
-    position: relative;
-    width: 120px;
-    height: 120px;
+.loader-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-/* The falling droplet */
-.droplet {
-    position: absolute;
-    top: -60px; /* Start above */
-    width: 24px;
-    height: 34px;
-    animation: drop-fall 2s cubic-bezier(0.4, 0, 1, 1) infinite;
+.loader-content h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    color: #ffffff !important;
 }
 
-@keyframes drop-fall {
-    0% { transform: translateY(0) scale(1); opacity: 0; }
-    20% { opacity: 1; }
-    50% { transform: translateY(100px) scale(0.8, 1.2); opacity: 1; }
-    55% { transform: translateY(100px) scale(1.5, 0.5); opacity: 0; }
-    100% { transform: translateY(100px); opacity: 0; }
-}
-
-/* The circular outline */
-.liquid-ring {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    overflow: hidden; /* Clips the rising liquid */
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-    /* Make the inner liquid rise from the bottom */
-    display: flex;
-    align-items: flex-end;
-}
-
-/* The rising liquid */
-.liquid-wave {
-    position: relative;
-    width: 200%;
-    left: -50%;
-    height: var(--progress, 0%); /* Controlled by JS */
-    background: var(--accent);
-    border-radius: 40%;
-    animation: slosh 4s linear infinite;
-    transition: height 0.3s ease-out;
-}
-
-@keyframes slosh {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.loader-content p {
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.5) !important;
+    text-transform: uppercase;
 }
 
 /* The percentage text */
 #load-percentage {
-    position: absolute;
-    bottom: -45px;
+    margin-top: 1rem;
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: 2px;
