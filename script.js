@@ -64,23 +64,12 @@ async function loadTimelinePortfolio() {
       const response = await fetch(file + "?v=" + new Date().getTime());
       if (!response.ok) throw new Error(`HTTP error status: ${response.status}`);
       
-      const htmlContent = await response.text();
+      let htmlContent = await response.text();
       
-      // Parse HTML to defer image loading
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlContent, 'text/html');
-      const articles = doc.querySelectorAll('article');
+      // Safely replace background-image with data-bg using regex to avoid DOMParser relative URL issues
+      htmlContent = htmlContent.replace(/style="background-image:\s*(url\(['"]?[^'"]+['"]?\));?"/gi, 'data-bg="$1"');
       
-      articles.forEach(article => {
-          const photos = article.querySelectorAll('.photo-item');
-          photos.forEach(photo => {
-              if (photo.style.backgroundImage && photo.style.backgroundImage !== 'none') {
-                  photo.setAttribute('data-bg', photo.style.backgroundImage);
-                  photo.style.backgroundImage = '';
-              }
-          });
-          stage.appendChild(article);
-      });
+      stage.insertAdjacentHTML('beforeend', htmlContent);
     } catch (err) {
       console.error(`Failed loading asset: ${file}`, err);
     }
@@ -101,38 +90,49 @@ async function loadTimelinePortfolio() {
   }
 
   updateBackgroundTheme(activeIndex);
-  updatePreloadedImages();
   console.log(`Successfully mapped ${allSlides.length} timeline portfolio slides.`);
   
   // Initialize the parallax hover effect for the newly loaded images
   initParallaxHover();
+  
+  // Start sequential background loading
+  loadImagesSequentially();
 }
 
 // ========================================================
-// 1.5 LAZY LOADING IMAGE PRELOADER
+// 1.5 STRICT SEQUENTIAL IMAGE LOADER (0 to 10)
 // ========================================================
-function preloadImagesForSlide(index) {
-  const slide = document.querySelector(`article[data-index="${index}"]`);
-  if (!slide) return;
-  const photos = slide.querySelectorAll('.photo-item[data-bg]');
-  photos.forEach(photo => {
-      photo.style.backgroundImage = photo.getAttribute('data-bg');
-      photo.removeAttribute('data-bg');
-  });
-}
-
-function updatePreloadedImages() {
+async function loadImagesSequentially() {
   const totalSlides = document.getElementsByTagName("article").length;
-  if (totalSlides === 0) return;
-  
-  // Preload current, previous, and next slides
-  preloadImagesForSlide(activeIndex);
-  
-  const prevIndex = activeIndex - 1 >= 0 ? activeIndex - 1 : totalSlides - 1;
-  const nextIndex = activeIndex + 1 <= totalSlides - 1 ? activeIndex + 1 : 0;
-  
-  preloadImagesForSlide(prevIndex);
-  preloadImagesForSlide(nextIndex);
+  for (let i = 0; i < totalSlides; i++) {
+    const slide = document.querySelector(`article[data-index="${i}"]`);
+    if (!slide) continue;
+    
+    const photos = slide.querySelectorAll('.photo-item[data-bg]');
+    if (photos.length === 0) continue;
+    
+    // Load all images for this slide concurrently, but wait before moving to next slide
+    await Promise.all(Array.from(photos).map(photo => {
+      return new Promise(resolve => {
+        const bgStr = photo.getAttribute('data-bg');
+        const bgMatch = bgStr.match(/url\(['"]?(.*?)['"]?\)/);
+        
+        if (bgMatch && bgMatch[1]) {
+          const img = new Image();
+          img.onload = img.onerror = () => {
+            photo.style.backgroundImage = bgStr;
+            photo.removeAttribute('data-bg');
+            resolve();
+          };
+          img.src = bgMatch[1];
+        } else {
+          photo.style.backgroundImage = bgStr;
+          photo.removeAttribute('data-bg');
+          resolve();
+        }
+      });
+    }));
+  }
 }
 
 // Initialize loading sequence
@@ -158,7 +158,6 @@ const handleLeftClick = () => {
     nextSlide.className = 'active';
     activeIndex = nextIndex;
     updateBackgroundTheme(activeIndex);
-    updatePreloadedImages();
   }, 50); 
 }
 
@@ -179,7 +178,6 @@ const handleRightClick = () => {
     nextSlide.className = 'active';
     activeIndex = nextIndex;
     updateBackgroundTheme(activeIndex);
-    updatePreloadedImages();
   }, 50);
 }
 
@@ -264,7 +262,6 @@ const navigateToSection = (targetIndex) => {
     
     activeIndex = targetIndex;
     updateBackgroundTheme(activeIndex);
-    updatePreloadedImages();
     document.body.classList.remove("menu-active");
   }, 50);
 }
