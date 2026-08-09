@@ -65,7 +65,22 @@ async function loadTimelinePortfolio() {
       if (!response.ok) throw new Error(`HTTP error status: ${response.status}`);
       
       const htmlContent = await response.text();
-      stage.insertAdjacentHTML('beforeend', htmlContent);
+      
+      // Parse HTML to defer image loading
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlContent, 'text/html');
+      const articles = doc.querySelectorAll('article');
+      
+      articles.forEach(article => {
+          const photos = article.querySelectorAll('.photo-item');
+          photos.forEach(photo => {
+              if (photo.style.backgroundImage && photo.style.backgroundImage !== 'none') {
+                  photo.setAttribute('data-bg', photo.style.backgroundImage);
+                  photo.style.backgroundImage = '';
+              }
+          });
+          stage.appendChild(article);
+      });
     } catch (err) {
       console.error(`Failed loading asset: ${file}`, err);
     }
@@ -86,10 +101,38 @@ async function loadTimelinePortfolio() {
   }
 
   updateBackgroundTheme(activeIndex);
+  updatePreloadedImages();
   console.log(`Successfully mapped ${allSlides.length} timeline portfolio slides.`);
   
   // Initialize the parallax hover effect for the newly loaded images
   initParallaxHover();
+}
+
+// ========================================================
+// 1.5 LAZY LOADING IMAGE PRELOADER
+// ========================================================
+function preloadImagesForSlide(index) {
+  const slide = document.querySelector(`article[data-index="${index}"]`);
+  if (!slide) return;
+  const photos = slide.querySelectorAll('.photo-item[data-bg]');
+  photos.forEach(photo => {
+      photo.style.backgroundImage = photo.getAttribute('data-bg');
+      photo.removeAttribute('data-bg');
+  });
+}
+
+function updatePreloadedImages() {
+  const totalSlides = document.getElementsByTagName("article").length;
+  if (totalSlides === 0) return;
+  
+  // Preload current, previous, and next slides
+  preloadImagesForSlide(activeIndex);
+  
+  const prevIndex = activeIndex - 1 >= 0 ? activeIndex - 1 : totalSlides - 1;
+  const nextIndex = activeIndex + 1 <= totalSlides - 1 ? activeIndex + 1 : 0;
+  
+  preloadImagesForSlide(prevIndex);
+  preloadImagesForSlide(nextIndex);
 }
 
 // Initialize loading sequence
@@ -115,6 +158,7 @@ const handleLeftClick = () => {
     nextSlide.className = 'active';
     activeIndex = nextIndex;
     updateBackgroundTheme(activeIndex);
+    updatePreloadedImages();
   }, 50); 
 }
 
@@ -135,6 +179,7 @@ const handleRightClick = () => {
     nextSlide.className = 'active';
     activeIndex = nextIndex;
     updateBackgroundTheme(activeIndex);
+    updatePreloadedImages();
   }, 50);
 }
 
@@ -219,6 +264,7 @@ const navigateToSection = (targetIndex) => {
     
     activeIndex = targetIndex;
     updateBackgroundTheme(activeIndex);
+    updatePreloadedImages();
     document.body.classList.remove("menu-active");
   }, 50);
 }
