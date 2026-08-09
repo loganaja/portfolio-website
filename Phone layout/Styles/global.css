@@ -101,3 +101,74 @@ h1, h2, h3, h4, p, span, button, a {
 .brand-home-btn {
     border-color: rgba(255, 255, 255, 0.1); /* Subtle starting border edge for the logo name */
 }
+
+/* ========================================================
+   WATER DROPLET LOADING SCREEN
+   ======================================================== */
+#global-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #020617 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 600ms ease, visibility 600ms ease, transform 600ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#global-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.05); /* Subtle expand on fade out */
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.loader-content h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    color: #ffffff !important;
+}
+
+.loader-content p {
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.5) !important;
+    text-transform: uppercase;
+}
+
+/* The percentage text */
+#load-percentage {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
+}
+
+/* The horizontal progress line */
+.loader-progress-bar-container {
+    width: 250px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+#loader-progress-bar {
+    width: var(--progress, 0%);
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease-out;
+    box-shadow: 0 0 10px var(--accent);
+}

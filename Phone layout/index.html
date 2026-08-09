@@ -16,6 +16,17 @@
 </head>
 <body>
 
+    <!-- GLOBAL LOADING SCREEN -->
+    <div id="global-loader">
+        <div class="loader-content">
+            <h2>LOGAN ARCHIBALD</h2>
+            <p>Mechatronics & Robotics Portfolio</p>
+            <div id="load-percentage">0%</div>
+        </div>
+        <div class="loader-progress-bar-container">
+            <div id="loader-progress-bar"></div>
+        </div>
+    </div>
     <nav>
         <div id="nav-mobile-section">
             <button class="header-nav-sweep-btn brand-home-btn" onclick="toggleProfileDrawer()" title="Profile">
@@ -61,7 +72,7 @@
                         <button class="nested-trigger-item">Personal Projects <i class="fa-solid fa-chevron-right sub-chevron"></i></button>
                         <ul class="nested-flyout-menu">
                             <li><button onclick="navigateToSection(10)">Autonomous FPV Waypoint Drone</button></li>
-                            <li><button onclick="navigateToSection(0)">Portfolio Website Design</button></li>
+                            <li><button onclick="window.open('https://github.com/loganaja/portfolio-website', '_blank')">Portfolio Website Github Page</button></li>
                         </ul>
                     </li>
                     
