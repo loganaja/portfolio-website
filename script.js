@@ -132,6 +132,15 @@ async function loadImagesSequentially() {
         }
       });
     }));
+    
+    // Hide the loading screen as soon as Slide 0 finishes loading
+    if (i === 0) {
+      const loader = document.getElementById('global-loader');
+      if (loader) {
+        loader.classList.add('hidden');
+        setTimeout(() => loader.remove(), 600);
+      }
+    }
   }
 }
 
