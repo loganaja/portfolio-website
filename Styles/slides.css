@@ -252,6 +252,7 @@ article.becoming-active-from-after {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    min-height: 0; /* Forces grid item to respect parent bounds and enable scrolling */
 }
 
 .home-title-box, .home-skills-box, .home-summary-content {
